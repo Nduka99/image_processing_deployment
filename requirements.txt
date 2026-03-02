@@ -1,0 +1,16 @@
+# Minimal dependencies required for AWS Free Tier Inference
+# Core API
+fastapi>=0.111.0
+uvicorn>=0.30.1
+pydantic>=2.7.4
+
+# ML Inference Toolkit (CPU only to save size)
+numpy>=1.26.4
+scikit-learn>=1.5.0
+joblib>=1.4.2
+
+# ONNX Runtime for lightweight XGBoost Inference (No need for full XGBoost library)
+onnxruntime>=1.18.0
+
+# Utilities
+python-multipart>=0.0.9
