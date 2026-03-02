@@ -47,7 +47,12 @@ themeToggleBtn.addEventListener('click', () => {
 
 
 let currentFile = null;
-const API_URL = "http://127.0.0.1:8000/predict";
+
+// Auto-detect API URL: local development vs deployed on AWS
+// When deployed, the S3 sync script replaces __API_GATEWAY_URL__ with the real endpoint
+const API_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://127.0.0.1:8000/predict"
+    : "__API_GATEWAY_URL__/predict";
 
 // ─── Drag & Drop Event Listeners ────────────────────────────────────────
 

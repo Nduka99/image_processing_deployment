@@ -1,22 +1,24 @@
 # Minimal dependencies required for AWS Free Tier Inference
+# Versions pinned for compatibility with AWS Lambda Python 3.11 base image
+
 # Core API
-fastapi>=0.111.0
-uvicorn>=0.30.1
-pydantic>=2.7.4
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic==2.9.2
 
-# ML Inference Toolkit (CPU only to save size)
-numpy>=1.26.4
-scikit-learn>=1.5.0
-joblib>=1.4.2
+# ML Inference Toolkit (CPU only, pre-built wheels)
+numpy==1.26.4
+scikit-learn==1.5.2
+joblib==1.4.2
 
-# ONNX Runtime for lightweight XGBoost Inference (No need for full XGBoost library)
-onnxruntime>=1.18.0
+# ONNX Runtime for lightweight XGBoost Inference
+onnxruntime==1.16.3
 
 # Image Processing & Feature Extraction
-opencv-python-headless>=4.9.0
-scikit-image>=0.22.0
-scipy>=1.13.0
-mahotas>=1.4.14
+opencv-python-headless==4.10.0.84
+scikit-image==0.24.0
+scipy==1.14.1
+mahotas==1.4.18
 
 # Utilities
-python-multipart>=0.0.9
+python-multipart==0.0.12
