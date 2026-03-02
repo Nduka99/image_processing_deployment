@@ -12,5 +12,11 @@ joblib>=1.4.2
 # ONNX Runtime for lightweight XGBoost Inference (No need for full XGBoost library)
 onnxruntime>=1.18.0
 
+# Image Processing & Feature Extraction
+opencv-python-headless>=4.9.0
+scikit-image>=0.22.0
+scipy>=1.13.0
+mahotas>=1.4.14
+
 # Utilities
 python-multipart>=0.0.9
