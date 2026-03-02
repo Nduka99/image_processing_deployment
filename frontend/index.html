@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat or Dog? 🐱🐶</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Fredoka', 'sans-serif'], // Playful, rounded font
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            400: '#fb7185', // playful pink
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        },
+                        accent: {
+                            400: '#38bdf8', // bright blue
+                            500: '#0ea5e9',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body
+    class="bg-amber-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col items-center selection:bg-brand-400 selection:text-white transition-colors duration-500 overflow-x-hidden antialiased">
+
+    <!-- Theme Toggle -->
+    <div class="absolute top-6 right-6 z-50">
+        <button id="theme-toggle"
+            class="p-3 rounded-full bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 text-slate-800 dark:text-amber-400">
+            <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-icon-light" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.366a1 1 0 011.415 0l.708.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-2.366 4.22a1 1 0 010 1.415l-.707.708a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-2.366a1 1 0 01-1.415 0l-.708-.707a1 1 0 111.414-1.414l.707.707a1 1 0 010 1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm2.366-4.22a1 1 0 010-1.415l.707-.708a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.415 0zM10 4a6 6 0 100 12 6 6 0 000-12z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Animated Background Blobs -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div
+            class="absolute -top-40 -left-40 w-96 h-96 bg-brand-400 dark:bg-brand-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] opacity-30 animate-pulse">
+        </div>
+        <div class="absolute top-40 -right-40 w-96 h-96 bg-accent-400 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] opacity-30 animate-pulse"
+            style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main
+        class="relative z-10 w-full max-w-4xl px-6 py-12 lg:py-20 flex flex-col items-center justify-center min-h-screen">
+
+        <!-- Header -->
+        <header class="text-center mb-10 animate-fade-in-up">
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4 flex justify-center gap-4 items-center">
+                <span>Cat</span>
+                <span class="text-brand-500">vs</span>
+                <span>Dog</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
+                Upload a picture of your furry friend, and our app will tell you if it's a <span
+                    class="text-accent-500 font-semibold">dog 🐶</span> or a <span
+                    class="text-brand-500 font-semibold">cat 🐱</span>!
+            </p>
+        </header>
+
+        <!-- Upload Interface Space -->
+        <div
+            class="w-full max-w-xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border-4 border-white dark:border-slate-700 rounded-[3rem] p-8 md:p-10 shadow-2xl transition-all duration-300">
+
+            <!-- Drag & Drop Zone -->
+            <div id="dropzone"
+                class="relative group cursor-pointer flex flex-col items-center justify-center w-full h-64 border-4 border-dashed border-slate-300 dark:border-slate-600 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 hover:bg-brand-50 dark:hover:bg-slate-800 hover:border-brand-400 dark:hover:border-brand-500 transition-all duration-300 overflow-hidden">
+
+                <img id="image-preview" src="" alt="Preview"
+                    class="absolute inset-0 w-full h-full object-contain hidden z-10 p-4">
+
+                <div id="upload-content"
+                    class="flex flex-col items-center justify-center z-20 pointer-events-none transition-opacity duration-300">
+                    <div class="text-6xl mb-2 group-hover:-translate-y-2 transition-transform duration-300">
+                        📸
+                    </div>
+                    <p class="mb-2 text-lg text-slate-700 dark:text-slate-300 font-medium"><span
+                            class="font-bold text-brand-500">Click to upload</span> or drag it here!</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">JPG or PNG works best</p>
+                </div>
+
+                <input id="file-upload" type="file" class="hidden" accept="image/jpeg, image/png, image/jpg" />
+            </div>
+
+            <!-- Action Area -->
+            <div class="mt-8 flex flex-col items-center">
+                <button id="predict-btn"
+                    class="relative overflow-hidden w-full px-8 py-5 bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-2xl font-bold text-xl tracking-wide transition-all duration-300 cursor-not-allowed disabled:opacity-50"
+                    disabled>
+                    Let's find out! ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-container"
+            class="w-full max-w-xl mt-8 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl border-4 border-white dark:border-slate-700 rounded-[3rem] p-8 opacity-0 translate-y-4 transition-all duration-500 hidden text-center">
+
+            <div id="result-emoji" class="text-7xl mb-4 animate-bounce-slow">🐾</div>
+            <h3 id="result-title" class="text-2xl font-bold text-slate-700 dark:text-slate-200 mb-2">We think it's a...
+            </h3>
+            <div id="result-label" class="text-6xl font-extrabold capitalize text-brand-500 mb-4 animate-pulse">---
+            </div>
+            <p id="result-message" class="text-lg text-slate-600 dark:text-slate-400 mb-6"></p>
+
+            <!-- Probability Breakdown -->
+            <div id="probability-container"
+                class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6 text-left w-full max-w-sm mx-auto mb-6">
+                <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 text-center">Confidence</h4>
+
+                <div class="mb-3">
+                    <div class="flex justify-between mb-1 text-sm">
+                        <span class="font-medium text-slate-700 dark:text-slate-300">🐶 Dog</span>
+                        <span id="prob-dog-text" class="font-bold text-accent-500">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                        <div id="prob-dog-bar" class="bg-accent-500 h-2 rounded-full transition-all duration-1000 w-0">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1 text-sm">
+                        <span class="font-medium text-slate-700 dark:text-slate-300">🐱 Cat</span>
+                        <span id="prob-cat-text" class="font-bold text-brand-500">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                        <div id="prob-cat-bar" class="bg-brand-500 h-2 rounded-full transition-all duration-1000 w-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="reset-btn"
+                class="px-6 py-3 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold shadow-sm hover:shadow-md hover:scale-105 transition-all outline-none">
+                Try another photo!
+            </button>
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

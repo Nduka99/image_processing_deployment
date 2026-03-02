@@ -1,0 +1,38 @@
+# Ignore everything we don't need in the Docker build context
+
+# Version Control
+.git/
+.gitignore
+
+# Data & Training Artifacts (large, not needed for inference)
+data/
+docs/
+notebooks/
+scripts/
+.img/
+
+# Unnecessary model files (we only need .onnx and .joblib)
+model/xgboost_champion.json
+model/catboost_info/
+
+# Infrastructure / Config
+infra/
+.env
+*.csv
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# IDE / OS
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+
+# Misc
+*.md
+*.md.resolved
+*.png
+*.pdf
+*.npy

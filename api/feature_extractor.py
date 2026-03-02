@@ -130,4 +130,4 @@ def process_raw_image(img_bgr):
     ])
     
     features = np.nan_to_num(features, nan=0.0, posinf=0.0, neginf=0.0)
-    return features.reshape(1, -1)
+    return features.reshape(1, -1).astype(np.float32)
